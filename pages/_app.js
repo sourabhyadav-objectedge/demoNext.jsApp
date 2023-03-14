@@ -7,9 +7,9 @@ export default function App({ Component, pageProps }) {
   <Component {...pageProps} />
   </SessionProvider>
 }
-export async function getServerSideProps()
+export async function getServerSideProps(context)
 {
-    const session=getSession();
+    const session=getSession(context);
     return {
         props:{
             session
