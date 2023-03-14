@@ -1,0 +1,24 @@
+.next,
+.previous {
+ position: absolute;
+ bottom:10rem;
+ padding: 2rem;
+ width: 9rem;
+ border:none;
+ background-color: #ffd670;
+ border-radius: 10px;
+ transition: all 0.2s ease-in;
+}
+.previous {
+ left:20rem;
+ 
+}
+.next {
+ right:20rem;
+}
+
+.previous:hover,
+.next:hover {
+ cursor: pointer;
+ transform: scale(1.2);
+}

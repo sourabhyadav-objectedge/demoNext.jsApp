@@ -1,0 +1,6 @@
+@import url(https://fonts.googleapis.com/css?family=Rubik);
+html {
+ font-size:62.5%;
+ font-family:  "Rubik", sans-serif;
+ overflow-x: hidden;
+}
