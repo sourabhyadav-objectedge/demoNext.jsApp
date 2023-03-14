@@ -1,8 +1,10 @@
 import { useRouter } from "next/router";
 import styles from "styles/NavBar.module.css"
+import { signIn,signOut, useSession} from 'next-auth/react'
 export default function NavBar(props)
 {
     const router=useRouter();
+    const {data:session,status}=useSession();
 
     const homeClickHandler=()=>
     {
@@ -15,6 +17,14 @@ export default function NavBar(props)
     const descriptionClickhandler=()=>
     {
         router.push("/description");
+    }
+    const signInClickHandler=()=>
+    {
+        signIn('github');
+    }
+    const signOutClickHandler=()=>
+    {
+        signOut('github');
     }
     return (
         <div className={styles.bar }>
@@ -34,10 +44,20 @@ export default function NavBar(props)
                     <svg className={styles.svg} xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 512 512"><title>Clipboard</title><path d="M336 64h32a48 48 0 0148 48v320a48 48 0 01-48 48H144a48 48 0 01-48-48V112a48 48 0 0148-48h32" fill="none" stroke="currentColor" strokeLinejoin="round" strokeWidth="32"/><rect x="176" y="32" width="160" height="64" rx="26.13" ry="26.13" fill="none" stroke="currentColor" strokeLinejoin="round" strokeWidth="32"/></svg>
                     Poll Description
                 </div>
-                <div className={styles.link}>
+                {
+                (status==="unauthenticated"||status==="loading")&&
+                <div className={styles.link} style={{opacity:(status==="loading"?"0":"1")}} onClick={signInClickHandler}>
                     <svg className={styles.svg}  xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 512 512"><title>Log In</title><path d="M192 176v-40a40 40 0 0140-40h160a40 40 0 0140 40v240a40 40 0 01-40 40H240c-22.09 0-48-17.91-48-40v-40" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="32"/><path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="32" d="M288 336l80-80-80-80M80 256h272"/></svg>
-                    Sign In
+                    Sign In &nbsp;
                 </div>
+                }
+                {
+                status==="authenticated"&&
+                <div className={styles.link+ " "+ styles.animate} onClick={signOutClickHandler}>
+                    <svg  className={styles.svg} xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 512 512"><title>Log Out</title><path d="M304 336v40a40 40 0 01-40 40H104a40 40 0 01-40-40V136a40 40 0 0140-40h152c22.09 0 48 17.91 48 40v40M368 336l80-80-80-80M176 256h256" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="32"/></svg>
+                    SignOut
+                </div>
+                }
             </div>
         </div>
     );

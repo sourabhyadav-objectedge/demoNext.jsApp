@@ -7,6 +7,7 @@ export default function About()
     <ul>
         <li>You can view every single vote that has been casted on the poll ! No privacy ! This is an open poll !</li>
         <li>Cast your vote by choosing Rap or Pop as the best music genre.</li>
+        <li>Anyone can cast any number of votes.</li>
     </ul>
     </div>;
 }
