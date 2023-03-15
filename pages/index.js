@@ -2,8 +2,6 @@ import Image from 'next/image'
 import styles from '@/styles/Home.module.css'
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
-import rapImg from 'public/rap.jpg'
-import popImg from 'public/pop.jpg'
 export default function Home() {
   const {data:session,status}=useSession();
   const animateClass=styles.animate;
@@ -28,9 +26,9 @@ export default function Home() {
     <div className={styles.poll+" "+animateClass}>
       <h1 className={styles.title}>Please cast your vote</h1>
       <div className={styles.options}>
-        <div className={styles.rap} onClick={()=>{vote('rap')}}><Image alt="Choose Rap" src={rapImg} width={200} height={200} className={styles.rapImage}/><p>Rap</p></div>
+        <div className={styles.rap} onClick={()=>{vote('rap')}}><Image alt="Choose Rap" src="./../../rap.jpg" width={200} height={200} className={styles.rapImage}/><p>Rap</p></div>
         <div className={styles.divider}></div>
-        <div className={styles.pop} onClick={()=>{vote('pop')}}><Image alt="Choose Pop" src={popImg} width={200} height={200} className={styles.popImage}/><p>Pop</p></div>
+        <div className={styles.pop} onClick={()=>{vote('pop')}}><Image alt="Choose Pop" src="./../../pop.jpg" width={200} height={200} className={styles.popImage}/><p>Pop</p></div>
       </div>
     </div>
     </>
