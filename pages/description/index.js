@@ -20,7 +20,7 @@ export default function Description()
     },[]);
 
     if(length===0)
-        return <h1>Found no votes</h1> 
+        return <div style={{textAlign:"center"}}><h1>Found no votes</h1></div>; 
     
     return <div className={styles.container}>
     {2*rap>length&&<h1>Rap Wins!</h1>}
