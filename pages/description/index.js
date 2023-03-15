@@ -26,7 +26,7 @@ export default function Description()
     {2*rap>length&&<h1>Rap Wins!</h1>}
     {2*rap<length&&<h1>Pop Wins!</h1>}
     {2*rap===length&&<h1>There is a tie!</h1>}
-    <h2>Rap: {rap}, Pop: {length-rap}</h2>
+    <h2>Rap: {rap}, Pop: {Object.is(length-rap,NaN)?"Loading...":length-rap}</h2>
     <button className={styles.start} onClick={()=>{router.push("/description/1")}}>Start Exploring who voted</button>
     </div>
 }
