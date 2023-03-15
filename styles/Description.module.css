@@ -1,5 +1,6 @@
 .next,
-.previous {
+.previous,
+.start {
  position: absolute;
  bottom:10rem;
  padding: 2rem;
@@ -16,9 +17,33 @@
 .next {
  right:20rem;
 }
-
+.start {
+ left:50%;
+ transform: translateX(-50%);
+ bottom: 20rem;
+ white-space: nowrap;
+ width: auto;
+}
 .previous:hover,
 .next:hover {
  cursor: pointer;
  transform: scale(1.2);
+}
+.start:hover {
+ transform: translateX(-50%) scale(1.2);
+ cursor: pointer;
+}
+.container {
+ animation: appear 0.2s ease-in;
+ text-align: center;
+ font-size: 2rem;
+}
+@keyframes appear {
+ 0% {
+    opacity: 0; 
+ }
+ 100% {
+    opacity: 1;   
+ }
+    
 }
