@@ -2,7 +2,7 @@ const fs=require('fs');
 
 export default function handler(req,res)
 {
-    const notExist=false;
+    var notExist=false;
     if(!fs.existsSync("/tmp/poll.json"))
         fs.writeFileSync("/tmp/poll.json","{\"votes\":[]}"),notExist=true;
     const poll=JSON.parse(fs.readFileSync("/tmp/poll.json",'utf-8'));
