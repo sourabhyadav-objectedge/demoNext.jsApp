@@ -2,8 +2,9 @@ const fs=require('fs');
 
 export default function handler(req,res)
 {
-
-    const poll=JSON.parse(fs.readFileSync(__dirname+"/../../../../../tmp/poll.json",'utf-8'));
+    if(!fs.existsSync(__dirname+"/../../../../../../../tmp/poll.json",'utf-8'))
+        fs.writeFileSync(__dirname+"/../../../../../../../tmp/poll.json","{\"votes\":[]}")
+    const poll=JSON.parse(fs.readFileSync(__dirname+"/../../../../../../../tmp/poll.json",'utf-8'));
     const length=poll.votes.length;
     const index=parseInt(req.query.descriptionId);
     if(index<=length&&index>=1)
