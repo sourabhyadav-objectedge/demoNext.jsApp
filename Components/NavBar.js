@@ -21,12 +21,10 @@ export default function NavBar(props)
     const signInClickHandler=()=>
     {
         signIn('github');
-        router.push("/");
     }
     const signOutClickHandler=()=>
     {
         signOut('github');
-        router.push("/");
     }
     return (
         <div className={styles.bar }>
