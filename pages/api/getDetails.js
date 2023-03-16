@@ -1,11 +1,11 @@
 const fs=require('fs');
 
-export default function handler(req,res)
+export default async function handler(req,res)
 {
     if(!fs.existsSync("/tmp/poll.json"))
     {
         if(!fs.existsSync("/tmp"))
-            fs.mkdir("/tmp",()=>{});
+            await fs.mkdir("/tmp",()=>{});
         fs.writeFileSync("/tmp/poll.json","{\"votes\":[]}");
         
     }
