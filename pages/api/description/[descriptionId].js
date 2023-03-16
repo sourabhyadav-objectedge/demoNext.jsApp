@@ -2,12 +2,19 @@ const fs=require('fs');
 
 export default async function handler(req,res)
 {
-    if(!fs.existsSync("/tmp/poll.json"))
+    try
     {
-        if(!fs.existsSync("/tmp"))
-            await fs.mkdir("/tmp",()=>{});
-        fs.writeFileSync("/tmp/poll.json","{\"votes\":[]}");
+        if(!fs.existsSync("/tmp/poll.json"))
+        {
+            if(!fs.existsSync("/tmp"))
+                await fs.mkdir("/tmp",()=>{});
+            fs.writeFileSync("/tmp/poll.json","{\"votes\":[]}");
+        }
         
+    }
+    catch(err)
+    {
+        res.status(500).json({name:"500",genre:"500"});
     }
     const poll= JSON.parse(fs.readFileSync("/tmp/poll.json",'utf-8'));
     const length=poll.votes.length;
