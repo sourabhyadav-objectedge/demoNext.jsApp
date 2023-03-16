@@ -4,7 +4,8 @@ export default function handler(req,res)
 {
     if(!fs.existsSync("/tmp/poll.json"))
     {
-        fs.mkdir("/tmp",()=>{});
+        if(!fs.existsSync("/tmp"))
+            fs.mkdir("/tmp",()=>{});
         fs.writeFileSync("/tmp/poll.json","{\"votes\":[]}");
         
     }
