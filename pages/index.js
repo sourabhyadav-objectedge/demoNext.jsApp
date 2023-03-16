@@ -4,10 +4,13 @@ import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import rapImg from 'public/rap.jpg'
 import popImg from 'public/pop.jpg'
+import { useState } from 'react';
 export default function Home() {
   const {data:session,status}=useSession();
   const animateClass=styles.animate;
   const router=useRouter();
+  const [error,setError]=useState(false);
+  if(error)return <div className={animateClass} style={{textAlign:"center",fontSize:"2rem"}}>An Error Occured!</div>
   const vote=async (genre)=>
   {
     const response=await fetch("/api/vote",
@@ -16,6 +19,13 @@ export default function Home() {
       body:JSON.stringify({name:session.user.name,genre}),
       headers:{"Content-Type":"application/json"}
     });
+    const data=await response.json();
+    if(data.status!==200)
+    {
+      setError(true);
+      return 
+    }
+
     router.push("/description")
     
   }
