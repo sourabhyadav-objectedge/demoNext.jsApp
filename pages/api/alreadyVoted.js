@@ -4,7 +4,7 @@ export default async function handler(req,res)
 {
     if(!req.body.id)
     {
-        await res.status(400).json({status:400});   
+        res.status(400).json({status:400});
         return;
     }
     try

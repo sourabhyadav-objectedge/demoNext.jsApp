@@ -32,12 +32,10 @@ export default function Home() {
   useEffect(
     ()=>
     {
-      if(status==="authenticated")
+      if(status==="authenticated"&&session.user.id!==undefined)
       {
-       
-    
-        const voted=async()=>
-        {
+            const voted=async()=>
+      {
           const response=await fetch("/api/alreadyVoted",
           {
             method:"POST",
@@ -55,13 +53,13 @@ export default function Home() {
           {
             setAlreadyVoted({status:true,genre:data.genre,loaded:true});
           }
+          else 
+          {
+            setAlreadyVoted({status:false,genre:null,loaded:true});
+          }
         }
         voted();
-        if(!session.user.id)
-        {
-          setError('id is not defined: '+session.user.id);
-          setTimeout(()=>{voted()},2000);
-        }
+        
       }
     }
     ,[status,session]);
