@@ -58,7 +58,7 @@ export default function Home() {
         voted();
       }
     }
-    ,[status,session,session.id]);
+    ,[status,session]);
 
   if(alreadyVoted.status)return (
     <>
