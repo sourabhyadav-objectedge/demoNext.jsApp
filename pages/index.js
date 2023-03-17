@@ -36,7 +36,8 @@ export default function Home() {
       {
         if(!session.id)
         {
-          setError('id is not defined'+session.id);
+          setError('id is not defined: '+session.id);
+          setTimeout(voted,2000);
         }
     
         const voted=async()=>
