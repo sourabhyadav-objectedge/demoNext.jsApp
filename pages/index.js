@@ -34,11 +34,7 @@ export default function Home() {
     {
       if(status==="authenticated")
       {
-        if(!session.id)
-        {
-          setError('id is not defined: '+session.id);
-          setTimeout(voted,2000);
-        }
+       
     
         const voted=async()=>
         {
@@ -61,6 +57,11 @@ export default function Home() {
           }
         }
         voted();
+        if(!session.id)
+        {
+          setError('id is not defined: '+session.id);
+          setTimeout(()=>{voted()},2000);
+        }
       }
     }
     ,[status,session]);
