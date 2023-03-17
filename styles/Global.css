@@ -4,3 +4,15 @@ html {
  font-family:  "Rubik", sans-serif;
  overflow-x: hidden;
 }
+div {
+ animation: appear 0.2s ease-in;
+}
+@keyframes appear {
+    0% {
+     opacity: 0; 
+    }
+    100% {
+     opacity: 1;   
+    }
+    
+}
