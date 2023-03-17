@@ -36,7 +36,7 @@ export default function Home() {
       {
         if(!session.id)
         {
-          setError(true);
+          setError('id is not defined'+session.id);
         }
     
         const voted=async()=>
@@ -73,7 +73,7 @@ export default function Home() {
 
   );
   if(error)
-    return <div className={animateClass} style={{textAlign:"center",fontSize:"2rem"}}>An Error Occured!</div>
+    return <div className={animateClass} style={{textAlign:"center",fontSize:"2rem"}}>An Error Occured! {error}</div>
   if(status==="loading")
     return <div className={animateClass} style={{textAlign:"center",fontSize:"2rem"}}>Loading...</div> 
   if(status==='authenticated'&&!alreadyVoted.loaded)
