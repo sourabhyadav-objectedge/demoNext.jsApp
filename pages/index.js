@@ -34,6 +34,10 @@ export default function Home() {
     {
       if(status==="authenticated")
       {
+        if(!session.id)
+        {
+          setError(true);
+        }
     
         const voted=async()=>
         {
