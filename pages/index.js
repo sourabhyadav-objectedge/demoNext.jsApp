@@ -69,7 +69,7 @@ export default function Home() {
   );
   if(error)
     return <div className={animateClass} style={{textAlign:"center",fontSize:"2rem"}}>An Error Occured!</div>
-  if(status==="loading"||!alreadyVoted.loaded)
+  if(status==="loading"||(status==='authenticated'&&!alreadyVoted.loaded))
     return <div className={animateClass} style={{textAlign:"center",fontSize:"2rem"}}>Loading...</div> 
   if(status==="unauthenticated")
     return <div className={animateClass} style={{textAlign:"center",fontSize:"2rem",marginTop:"2rem"}}>You need to be logged in to cast a vote</div>
