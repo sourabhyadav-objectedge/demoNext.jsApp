@@ -13,6 +13,7 @@ export default function Description()
         {
             const response=await fetch("/api/getDetails");
             const data=await response.json();
+            console.log(data);
             if(data.status!==200)
             {
                 setLength('An error Occured');

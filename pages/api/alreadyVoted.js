@@ -2,7 +2,7 @@ import clientPromise from "lib/mongo/mongodb"
 
 export default async function handler(req,res)
 {
-    if(!req.body.id||!req.body.name||!req.body.genre)
+    if(!req.body.id)
     {
         res.status(400).json({status:400});   
         return;
@@ -14,11 +14,13 @@ export default async function handler(req,res)
         const alreadyVoted= await db.collection('votes').find({id:req.body.id}).toArray();
         if(alreadyVoted.length)
         {
-            res.status(403).json({status:403,genre:alreadyVoted[0].genre});
+            res.status(200).json({status:200,voted:true,genre:alreadyVoted[0].genre});
             return;
         }
-        await db.collection('votes').insertOne({id:req.body.id,name:req.body.name,genre:req.body.genre});
-        res.status(200).json({status:200,message:"Successfully voted"});
+        else
+        {
+            res.status(200).json({status:200,voted:false})
+        }
     }
     catch(error)
     {

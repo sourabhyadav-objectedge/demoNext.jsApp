@@ -9,23 +9,7 @@ export default function Description()
     const [genre,setGenre]=useState('');
     const router=useRouter();
     const id=parseInt(router.query.descriptionId);  
-    useEffect(()=>
-    {
-        const fetchDetails=async ()=>
-        {
-            let response=await fetch("/api/getDetails");
-            let data=await response.json();
-            if(data.status!==200)
-            {
-                setLength('An error Occured');
-                setRap('An error Occured');
-                return;
-            }
-            setLength(parseInt(data.length));
-            setRap(parseInt(data.rap));
-        }
-        fetchDetails();
-    },[]);
+   
     useEffect(()=>
     {
         const fetchDetails=async ()=>
@@ -39,10 +23,14 @@ export default function Description()
                 {
                     setName('An error Occured');
                     setGenre('An error Occured');
+                    setRap('An error occured');
+                    setLength('An error Occured')
                     return;
                 }
                 setName(data.name);
                 setGenre(data.genre);
+                setLength(data.length);
+                setRap(data.rap)
             } 
         }
         fetchDetails();

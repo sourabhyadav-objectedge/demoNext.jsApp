@@ -4,32 +4,72 @@ import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import rapImg from 'public/rap.jpg'
 import popImg from 'public/pop.jpg'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 export default function Home() {
-  const {data:session,status}=useSession();
-  const animateClass=styles.animate;
-  const router=useRouter();
-  const [error,setError]=useState(false);
-  if(error)return <div className={animateClass} style={{textAlign:"center",fontSize:"2rem"}}>An Error Occured!</div>
   const vote=async (genre)=>
   {
     const response=await fetch("/api/vote",
     {
       method:"POST",
-      body:JSON.stringify({name:session.user.name,genre}),
+      body:JSON.stringify({name:session.user.name,genre,id:session.user.id}),
       headers:{"Content-Type":"application/json"}
     });
     const data=await response.json();
     if(data.status!==200)
     {
       setError(true);
-      return 
+      return ;
     }
-
     router.push("/description")
-    
   }
-  if(status==="loading")
+  
+  
+  const {data:session,status}=useSession();
+  const animateClass=styles.animate;
+  const router=useRouter();
+  const [error,setError]=useState(false);
+  const [alreadyVoted,setAlreadyVoted]=useState({status:false,genre:null,loaded:false});
+  useEffect(
+    ()=>
+    {
+      if(status==="authenticated")
+      {
+        const voted=async()=>
+        {
+          const response=await fetch("/api/alreadyVoted",
+          {
+            method:"POST",
+            body:JSON.stringify({id:session.user.id}),
+            headers:{'Content-Type':'application/json'}
+
+          });
+          const data=await response.json();
+          if(data.status!==200)
+          {  
+            setError(true);
+            return;
+          }
+          else if(data.voted)
+          {
+            setAlreadyVoted({status:true,genre:data.genre,loaded:true});
+          }
+        }
+        voted();
+      }
+    }
+    ,[status]);
+
+  if(alreadyVoted.status)return (
+    <>
+      <div className={animateClass} style={{textAlign:"center",fontSize:"2rem"}}>You already voted for {alreadyVoted.genre}</div>
+      {alreadyVoted.genre==="rap"&&<div className={styles.rap} style={{textAlign:"center"}}><Image alt="Chose Rap" style={{borderRadius:"50%"}} src={rapImg} width={200} height={200} className={styles.rapImage} placeholder='blur'/></div>}
+      {alreadyVoted.genre==="pop"&&<div className={styles.pop} style={{textAlign:"center"}}><Image alt="Chose Pop" style={{borderRadius:"50%"}} src={popImg} width={200} height={200} className={styles.popImage} placeholder='blur'/></div>}
+    </>
+
+  );
+  if(error)
+    return <div className={animateClass} style={{textAlign:"center",fontSize:"2rem"}}>An Error Occured!</div>
+  if(status==="loading"||!alreadyVoted.loaded)
     return <div className={animateClass} style={{textAlign:"center",fontSize:"2rem"}}>Loading...</div> 
   if(status==="unauthenticated")
     return <div className={animateClass} style={{textAlign:"center",fontSize:"2rem",marginTop:"2rem"}}>You need to be logged in to cast a vote</div>

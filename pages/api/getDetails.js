@@ -1,21 +1,17 @@
-const fs=require('fs');
+import clientPromise from "lib/mongo/mongodb"
 
 export default async function handler(req,res)
 {
     try
     {
-        if(!fs.existsSync("/tmp/poll.json"))
-        {
-            if(!fs.existsSync("/tmp"))
-                await fs.mkdir("/tmp",()=>{});
-            fs.writeFileSync("/tmp/poll.json","{\"votes\":[]}");
-        }
+        const dbClient=await clientPromise;
+        const db = dbClient.db('poll-app-next-js-demo');
+        const data= await db.collection('votes').find({}).toArray();
+        res.status(200).json({status:200,length:data.length,rap:data.reduce((freq,vote)=>{return freq+=(vote.genre==='rap')},0)});
     }
-    catch(err)
+    catch(error)
     {
-        res.status(500).json({length:0,rap:0});
+        res.status(500).json({status:500});
     }
-    const poll=JSON.parse(fs.readFileSync("/tmp/poll.json",'utf-8'));
-    res.status(200).json({length:poll.votes.length,rap:poll.votes.reduce((freq,vote)=>freq+(vote.genre=='rap'),0)});
-    
+
 }

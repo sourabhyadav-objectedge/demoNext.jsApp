@@ -1,8 +1,28 @@
 import NextAuth from "next-auth";
 import GitHubProvider from "next-auth/providers/github"
+import { Profiler } from "react";
 export default  NextAuth({
     providers:[
-        GitHubProvider({clientId:"c132a086807fe62040bd",clientSecret:"4372005cf06ae195edb57ac6058c438c82d5df37"})
+        GitHubProvider({clientId:process.env.clientId,clientSecret:process.env.clientSecret})
     ],
-    secret:"4372005cf06ae195edb57ac6058c438c82d5df37"
+    secret:process.env.JWT_KEY,
+    session:{
+        strategy:"jwt"
+    },
+   callbacks:{
+        async jwt({token,profile})
+        {
+            if(profile)
+            {   
+                token.id=profile.id
+            }
+            return token;
+        },
+        async session({ session, token }) 
+        {
+            session.user.id=token.id
+            return session
+        }
+     
+   }
 })
