@@ -34,7 +34,7 @@ export default function Home() {
     {
       if(status==="authenticated"&&session.user.id!==undefined)
       {
-            const voted=async()=>
+      const voted=async()=>
       {
           const response=await fetch("/api/alreadyVoted",
           {
