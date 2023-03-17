@@ -57,9 +57,9 @@ export default function Home() {
           }
         }
         voted();
-        if(!session.id)
+        if(!session.user.id)
         {
-          setError('id is not defined: '+session.id);
+          setError('id is not defined: '+session.user.id);
           setTimeout(()=>{voted()},2000);
         }
       }
