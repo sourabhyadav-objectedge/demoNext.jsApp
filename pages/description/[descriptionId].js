@@ -45,7 +45,7 @@ export default function Description()
     {2*rap===length&&<h1>There is a tie!</h1>}
     <h2>Rap: {rap}, Pop: {length-rap}</h2>
     <div className={styles.container}>Vote {id}: <br/> By:{name} <br/>Voted to: {genre}  </div>
-    {id<length&&<button className={styles.next} onClick={()=>{router.push(`/description/${id+1}`)}}>Next</button>}
-    {id!==1&&<button className={styles.previous}  onClick={()=>{router.push(`/description/${id-1}`)}}>Previous</button>}
+    {id<length&&<button className={styles.next} onClick={()=>{setName('Loading...');setGenre('Loading...');router.push(`/description/${id+1}`)}}>Next</button>}
+    {id!==1&&<button className={styles.previous}  onClick={()=>{setName('Loading...');setGenre('Loading...');;router.push(`/description/${id-1}`)}}>Previous</button>}
     </div>
 }
